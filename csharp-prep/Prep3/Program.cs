@@ -8,12 +8,12 @@ class Program
     {
      Random randomGenerator = new Random();
      int magicNumber = randomGenerator.Next(1, 10);
-
+   
+   while (true)
+   
     Console.Write("What is the Magic Number? ");
     int number = int.Parse(Console.ReadLine());
     
-
-    while (number != magicNumber)
     {
         if (number > magicNumber)
      {
@@ -29,6 +29,6 @@ class Program
      }
     }
     
-    }
+   }
 
 }
