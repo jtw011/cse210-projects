@@ -1,14 +1,26 @@
 using System;
+using System.IO;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Contracts;
+using System.Collections;
+using System.Globalization;
+using System.Xml.Serialization;
 
 class Program
 {
     static void Main()
     {
+        Journal journal = new Journal();
         Prompt prompt = new Prompt();
         string fileName = "journal.txt";
 
+        if (File.Exists(fileName))
+        {
+            string[] entries = File.ReadAllLines(fileName);
+            journal.Load(entries);
+        }
+
+        
         Console.WriteLine("Welcome to the Journal Program!");
 
         while (true)
@@ -21,50 +33,32 @@ class Program
 
         Console.WriteLine("Welcome to the Journal Program!");
         Console.WriteLine("Please Select one of the choices:");
-
-        if (int.TryParse(Console.ReadLine(), out int choice))
+        string choice = Console.ReadLine();
+        
+        switch(choice)
         {
-
-            if (choice == 1)
-            {
+            case "1":
                 string randomPrompt = prompt.RandomPrompt();
                 Console.WriteLine(randomPrompt);
-                Console.WriteLine("Enter your response: ");
-                string response = Console.ReadLine();
-                Entry entry = new Entry(randomPrompt, response, DateTime.Now);
-            }
-    
-            else if (choice == 2)
-            {
-                Console.WriteLine("Journal Entries:");
-                foreach (var entries in entry)
-                {
-                    Console.WriteLine($"Date: {entry.Date}");
-                    Console.WriteLine($"{entry.Prompt}");
-                    Console.WriteLine($"{entry.Response}");
-                    Console.WriteLine();
-                }
-            }
+                Console.WriteLine("Enter your journal entry:");
+                string entry = Console.ReadLine();
+                journal.AddEntry(entry);
+                break;
 
-           else if (choice == 3)
-           {
-                entries = LoadEntriesFromFile(fileName);
-           }
-
-           else if (choice == 4)
-           {
-                SaveEntriesToFile(entries, fileName);
-           }
-
-           else if (choice == 5)
-           {
+            case "2":
+                journal.DisplayEntries();
+                break;
+            case "3":
+                string[] entries = File.ReadAllLines(fileName);
+                journal.Load(entries);
+                break;
+            case "4":
+                journal.SaveToFile(fileName);
+                Console.WriteLine($"Journal saved to {fileName}");
+                break;
+            case "5":
                 Environment.Exit(0);
-           }
-
-           else
-           {
-            Console.WriteLine("Invalid choice. Please select a valid option");
-           }
+                break;
         }
     }   
     }
