@@ -3,14 +3,20 @@ using System.IO.Enumeration;
 class Word
 {
 
-    public string Text { get; }
-    public bool IsHidden {get; set;}
+    public string _Text;
+    public bool _IsHidden;
 
-    public Word(String text)
+    public Word(string text, bool IsHidden)
     {
-        Text = text;
-        IsHidden = false;
+        _Text = text;
+        _IsHidden = false;
     }
+
+    public void display()
+    {
+        Console.WriteLine(_Text);
+    }
+
 
 
 }

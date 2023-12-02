@@ -1,28 +1,19 @@
 class Reference
 {
-public string Book {get; }
-public int Chapter {get; }
-public int StartVerse {get;}
-public int EndVerse {get;}
-public Reference (string reference)
+public string _book;
+public int _chapter;
+public int _StartVerse;
+public int _EndVerse;
+public Reference (string book, int chapter, int StartVerse, int EndVerse)
 {
-    var parts = reference.Split(':');
-    Book = parts[0];
-    var verseParts = parts[1].Split('-');
-    Chapter = int.Parse(verseParts[0]);
-    StartVerse = int.Parse(verseParts[1]);
-    EndVerse = verseParts.Length > 1 ? int.Parse(verseParts[1]) : StartVerse;
+    _book = book;
+    _chapter = chapter;
+    _StartVerse = StartVerse;
+    _EndVerse = EndVerse;
 }
 
-    public override string ToString()
+    public void Display()
     {
-        if (StartVerse == EndVerse)
-        {
-            return $"{Book} {Chapter}: {StartVerse}";
-        }
-        else
-        {
-            return $"{Book} {Chapter}: {StartVerse}-{EndVerse}";
-        }
+        Console.Write($"Book: {_book} Chapter: {_chapter} Verse: {_StartVerse}{_EndVerse}");
     }
 }
