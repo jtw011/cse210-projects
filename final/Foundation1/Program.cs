@@ -13,13 +13,13 @@ class Program
             new Video("Video3", "Author3", "length3")
         };
 
-        Comment comment1 = new Comment("User1", "Great video!");
-        Comment comment2 = new Comment("User2", "Thanks for sharing!");
-        Comment comment3 = new Comment("User3", "Very informative.");
-        Comment comment4 = new Comment("User4", "I learned a lot from this video.");
-        Comment comment5 = new Comment("User5", "Awesome content!");
-        Comment comment6 = new Comment("User6", "Keep it up!");
-        Comment comment7 = new Comment("User7", "This video is great!");
+        Comments comment1 = new Comments("User1", "Great video!");
+        Comments comment2 = new Comments("User2", "Thanks for sharing!");
+        Comments comment3 = new Comments("User3", "Very informative.");
+        Comments comment4 = new Comments("User4", "I learned a lot from this video.");
+        Comments comment5 = new Comments("User5", "Awesome content!");
+        Comments comment6 = new Comments("User6", "Keep it up!");
+        Comments comment7 = new Comments("User7", "This video is great!");
 
     
         videos[0].AddComment(comment1);
@@ -33,6 +33,11 @@ class Program
         foreach (var video in videos)
         {
             Console.WriteLine($"Title: {video.GetTitle()}, Author: {video.GetAuthor()}, Length: {video.GetLength()}, Number of comments: {video.NumberOfComments()}");
+        }
+
+        foreach (var comment in Video.GetComments())
+        {
+            Console.WriteLine($"{comment.GetCommenterName()} {comment.GetText()}");
         }
              
              

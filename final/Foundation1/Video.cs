@@ -10,7 +10,7 @@ public class Video
 
     private string _length;
 
-    private List<Comment>comments = new List<Comment>();
+    private List<Comments>comments = new List<Comments>();
 
     public string GetTitle()
     {
@@ -33,9 +33,10 @@ public class Video
         _author = Author;
         _length = Length;
 
+
     }
 
-    public void AddComment(Comment comment)
+    public void AddComment(Comments comment)
     {
         comments.Add(comment);
     }
@@ -43,6 +44,11 @@ public class Video
     public int NumberOfComments()
     {
         return comments.Count;
+    }
+
+    public static List<Comments>GetComments()
+    {
+        return _comments;
     }
 
 
