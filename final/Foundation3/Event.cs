@@ -37,15 +37,15 @@ public abstract class Event
 
 
 
-    public string StandardDetails()
+    public virtual string StandardDetails()
     {
         return $"{_title}, {_description}, {_date}, {_time}, {_address}";
     }
-    public string FullDetails()
+    public virtual string FullDetails()
     {
         return $"{StandardDetails()}";
     }
-    public string ShortDescription()
+    public virtual string ShortDescription()
     {
         return $"{StandardDetails()}";
     }

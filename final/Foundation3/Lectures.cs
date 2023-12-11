@@ -11,7 +11,12 @@ public class Lectures : Event
 
     public override string FullDetails()
     {
-        return $"{StandardDetails()}";
+        return $"{StandardDetails()}, Speaker: {_speaker}, Capacity: {_capacity}";
+    }
+
+    public override string ShortDescription()
+    {
+        return $"Lecture: {GetTitle()}, {GetDate()}"; 
     }
 
 }

@@ -33,14 +33,14 @@ class Program
         foreach (var video in videos)
         {
             Console.WriteLine($"Title: {video.GetTitle()}, Author: {video.GetAuthor()}, Length: {video.GetLength()}, Number of comments: {video.NumberOfComments()}");
-        }
+        
 
-        foreach (var comment in Video.GetComments())
+        foreach (var comment in video.GetComments())
         {
             Console.WriteLine($"{comment.GetCommenterName()} {comment.GetText()}");
         }
              
-             
+        }     
     }    
 
 }
