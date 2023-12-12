@@ -1,9 +1,14 @@
 using System;
+using System.ComponentModel;
+using System.Transactions;
 
 class Program
 {
     static void Main(string[] args)
     {
+        UserRecord userRecord = new UserRecord(0, "myFile.txt");
+        userRecord.makeList();
+
          while (true)
         {
             Console.WriteLine("You have {points} points");
@@ -19,44 +24,83 @@ class Program
 
             int choice = int.Parse(Console.ReadLine());
 
-            Goal goal = null;
-
             switch (choice)
             {
                 case 1:
-                    Console.WriteLine("You selected Create New Goal");
-                    goal = new Goal();
-                    break;
+                    
+
+                    Console.WriteLine("Enter the description of the goal: ");
+                    string description = Console.ReadLine();
+
+                    Console.WriteLine("Enter the points for the goal: ");
+                    int points = int.Parse(Console.ReadLine());
+
+                    Console.WriteLine("is this a continuous goal? (y/n)");
+                    bool isContinuous = Console.ReadLine().ToLower() == "y";
+
+                    Console.WriteLine("What type of goal is this? (simple, checklist or eternal)");
+                    string goalType = Console.ReadLine().ToLower();
+
+                    Goal newGoal;
+
+                    switch (goalType)
+                    {
+                    
+                        case "simple":
+                        newGoal = new SimpleGoal(description, points, isContinuous);
+                        break;
+
+                        case "checklist":
+                        Console.WriteLine("Enter the number of times this goal needs to be completed: ");
+                        int target = int.Parse(Console.ReadLine());
+
+                        Console.WriteLine("Enter the current progress towards the goal: ");
+                        int current = int.Parse(Console.ReadLine());
+
+                        Console.WriteLine("Enter the bonus points for the goal: ");
+                        int bonus = int.Parse(Console.ReadLine());
+
+                        Goal newGoal = new ChecklistGoal(description, points, isContinuous, target, current, bonus);
+                        break;
+
+                        case "eternal":
+                        Goal newGoal = new EternalGoal(description, points, isContinuous);
+                        break;
+
+                        default:
+                        Console.WriteLine("Invalid goal type.");
+                        break;
+
+                    }
+                    if (newGoal != null)
+                    {
+
+                        userRecord.CreateGoal(newGoal);
+                        Console.WriteLine("Goal Successfully created!");
+                    }
 
                 case 2:
                     Console.WriteLine("You selected List Goal");
-                    goal = new ReflectingActivity();
+                    userRecord.Display();
                     break;
 
                 case 3:
                     Console.WriteLine("You selected Save Goal");
-                    goal = new UserRecord();
+                    userRecord.SaveGoals();
                     break;
 
                 case 4:
                     Console.WriteLine("You selected Load Goal");
-                    goal = new ListingActivity();
+                    userRecord.loadGoals();
                     break;
 
                 case 5:
                     Console.WriteLine("Goodbye!");
-                    break;
+                    return;
 
                 default:
                     Console.WriteLine("Invalid choice. Please select a valid option");
                     break;
-            }
-
-            if (goal != null)
-            {
-                goal.Start();
-                goal.PerformActivity();
-                goal.End();
             }
 
         }

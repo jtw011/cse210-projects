@@ -3,7 +3,7 @@ public class UserRecord
     private int _totalPoints;
     private string _files;
     
-    List<string> _goalList;
+    List<Goal> _goalList;
 
     public UserRecord(int totalPoints, string file)
     {
@@ -13,18 +13,28 @@ public class UserRecord
 
     public void makeList()
     {
-        _goalList = new List<string>();
+        _goalList = new List<Goal>();
     }
 
     public void createFile()
     {
-        string fileName = "myFile.txt";
 
-        System.IO.File.Create(fileName);
+        System.IO.File.Create(_files);
 
     }
 
-    public void loadFile()
+    public void SaveGoals()
+    {
+        using (StreamWriter file = new StreamWriter(_files))
+        {
+            foreach (Goal goal in _goalList)
+            {
+                file.WriteLine(goal.ToString());
+            }
+        }
+    }
+
+    public void loadGoals()
     {
         using (System.IO.StreamReader file = new System.IO.StreamReader(_files))
         {
@@ -36,11 +46,18 @@ public class UserRecord
         }
     }
 
+    public void CreateGoal(Goal goal)
+    {
+        _goalList.Add(goal);
+    }
+
+
+
     public void Display()
     {
-        foreach (string goal in _goalList)
+        foreach (Goal goal in _goalList)
         {
-            Console.WriteLine(goal);
+            goal.Display();
         }
     }
 }
